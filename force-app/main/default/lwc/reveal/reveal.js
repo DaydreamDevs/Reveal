@@ -1,19 +1,16 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track , wire} from 'lwc';
 import confetti from '@salesforce/resourceUrl/aa';
 import { loadScript } from 'lightning/platformResourceLoader';
+import getGender from '@salesforce/apex/revealController.getGender';
 
 export default class Reveal extends LightningElement {
-    
-    confettiInitialized = false;
+    @track detailsVisible = false;
+    @wire(getGender) contact;
 
-    renderedCallback() {
+    handleClick() {
         var can;
         var confettiSettings;
         var confettiDo; 
-        if (this.confettiInitialized) {
-            return;
-        }
-        this.confettiInitialized = true;
         loadScript(this, confetti + '/bb.js')
             .then(() => { 
                 can = this.template.querySelector('canvas');
@@ -25,6 +22,7 @@ export default class Reveal extends LightningElement {
                 
                 confettiDo = new window.ConfettiGenerator(confettiSettings);
                 confettiDo.render();
+                this.detailsVisible = true;
             });
     }
 
