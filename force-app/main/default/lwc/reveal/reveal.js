@@ -1,5 +1,5 @@
 import { LightningElement, track, wire } from "lwc";
-import confetti from "@salesforce/resourceUrl/aa";
+import confetti from "@salesforce/resourceUrl/Confetti";
 import { loadScript } from "lightning/platformResourceLoader";
 import getGender from "@salesforce/apex/revealController.getGender";
 
@@ -11,7 +11,7 @@ export default class Reveal extends LightningElement {
     var can;
     var confettiSettings;
     var confettiDo;
-    loadScript(this, confetti + "/bb.js").then(() => {
+    loadScript(this, confetti).then(() => {
       can = this.template.querySelector("canvas");
       confettiSettings = {
         target: can,
